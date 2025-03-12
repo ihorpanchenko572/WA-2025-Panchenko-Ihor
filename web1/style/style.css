@@ -10,7 +10,7 @@ selector {
 */
 
 body{
-    background-color: rgb(155, 25, 101);
+    background-color: #9b1965;
 }
 
 h1{
@@ -35,7 +35,7 @@ nav ol {
 }
 
 nav a {
-    background-color: #f700ff;
+    background-color: #5f3595;
     color: white;
     text-decoration: none;
     padding: 5px;

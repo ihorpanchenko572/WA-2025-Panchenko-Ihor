@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP galery</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+           <h1>WA - první web</h1>
+        </header>
+        <nav>    
+            <!-- Navigace pomoci odrazek-->
+            <ol>
+                <li><a href= "index.html">Domů</a></li>
+                <li><a href= "galery.html">Obrazky</a></li>
+                <li><a href= "#">O nas</a></li>
+                <li><a href= "#">Kontakt</a></li>
+
+            </ol>
+        </nav>
+        <main> 
+            <div class="content-wrapper">
+                <section class="grid-container">
+                    <figure>
+                        <img src="assets/image/dummy_600x400_000000_ffe2c9.png" alt="Trulli" style="width:100%">
+                        <figcaption>Fig.1</figcaption>
+                      </figure>
+                    <figure>
+                        <img src="assets/image/dummy_600x400_000000_17d663.png" alt="Trulli" style="width:100%">
+                        <figcaption>Fig.2</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/image/dummy_600x400_000000_38c48a.png" alt="Trulli" style="width:100%">
+                        <figcaption>Fig.3</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/image/dummy_600x400_000000_ccf9ff.png" alt="Trulli" style="width:100%">
+                        <figcaption>Fig.4</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/image/dummy_600x400_000000_ea8fc4.png" alt="Trulli" style="width:100%">
+                        <figcaption>Fig.5</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/image/dummy_600x400_000000_ef8385.png" alt="Trulli" style="width:100%">
+                        <figcaption>Fig.6</figcaption>
+                      </figure>
+            </section>
+        </div>
+        </main>
+
+        <footer>
+            <p>&copy 2025 Ihor Panchenko</p>
+            <input type="color" id="colorPicker" value="#9b1965">
+        </footer>
+</div>
+<script>
+    const colorPicker = document.getElementById('colorPicker');
+    const body = document.body;
+    const textElements = document.querySelectorAll('h1, p');
+
+
+    colorPicker.addEventListener('input', () => {
+        const color = colorPicker.value;
+        body.style.background = color;
+       
+        // Převod hex na RGB
+        const r = parseInt(color.substr(1, 2), 16);
+        const g = parseInt(color.substr(3, 2), 16);
+        const b = parseInt(color.substr(5, 2), 16);
+       
+        // Výpočet světlosti (luminance) podle vnímání oka
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+       
+        // Pokud je světlost vysoká, nastavíme černý text, jinak bílý
+        //const textColor = luminance > 0.5 ? 'black' : 'white';
+        //textElements.forEach(el => el.style.color = textColor);
+    });
+</script>
+</body>
+</html>
