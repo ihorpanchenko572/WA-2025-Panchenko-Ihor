@@ -33,7 +33,7 @@ class StudentController {
     }
 
     public function listStudents() {
-        $students = $this->studentModel->getAll();
+        $studenti = $this->studentModel->getAll();
         include '../viewstudenti/student_list.php';
     }
 }

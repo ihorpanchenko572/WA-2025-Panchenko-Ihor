@@ -22,7 +22,7 @@ class Student {
     }
 
     public function getAll() {
-        $sql = "SELECT * FROM studenti ORDER BY id DESC";
+        $sql = "SELECT * FROM studenti ORDER BY created_at DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

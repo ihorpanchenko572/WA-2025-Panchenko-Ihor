@@ -9,9 +9,9 @@ require_once '../ModelsST/student.php';
         $id = (int)$_GET['id'];
 
         $db = (new Database())->getConnection();
-        $bookModel = new Student($db);
+        $studentModel = new Student($db);
 
-        if ($bookModel->delete($id)) {
+        if ($studentModel->delete($id)) {
             header("Location: ../viewstudenti/students_edit_delete.php");
             exit();
         } else {
