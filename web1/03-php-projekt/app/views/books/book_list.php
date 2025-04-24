@@ -32,11 +32,6 @@
                 </div>
             </div>
         </nav>
-        <?php 
-       echo 'Session ID: ' . session_id();
-       session_regenerate_id(true);
-       echo 'New Session ID: ' . session_id();
-        ?>
         <h2>Výpis knih</h2>
          <?php if(!empty($books)): ?>
             <!-- <h3>Hrubý výpis knih</h3> -->
