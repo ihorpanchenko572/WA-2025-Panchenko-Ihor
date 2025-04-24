@@ -12,7 +12,7 @@
 </head>
 <body class="bg-light">
 
-    <div class="container mt-5">
+    < class="container mt-5">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Knihovna</a>
@@ -32,6 +32,11 @@
                 </div>
             </div>
         </nav>
+        <?php 
+       echo 'Session ID: ' . session_id();
+       session_regenerate_id(true);
+       echo 'New Session ID: ' . session_id();
+        ?>
         <h2>Výpis knih</h2>
          <?php if(!empty($books)): ?>
             <!-- <h3>Hrubý výpis knih</h3> -->
