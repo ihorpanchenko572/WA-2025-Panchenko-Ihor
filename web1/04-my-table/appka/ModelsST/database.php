@@ -10,7 +10,7 @@ class Database {
     public function getConnection() {
         
         // Odpojí připojení k databázi tím, že změní proměnnou $this->conn na null.
-        // Ukončí existující PDO objekt, což může být užitečné pro správu paměti.
+        // Ukončí existující PDO objekt, což může býtt užitečné pro správu paměti.
         $this->conn = null;
         
         try {
