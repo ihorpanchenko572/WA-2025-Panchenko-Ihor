@@ -36,6 +36,12 @@ if (!isset($_SESSION['user_id'])) {
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost/WA-2025-Panchenko-Ihor/web1/03-php-projekt/app/controllers/book_list.php">Výpis knih</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/WA-2025-Panchenko-Ihor/web1/03-php-projekt/app/views/auth/register.php">Registrace</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/WA-2025-Panchenko-Ihor/web1/03-php-projekt/app/controllers/book_list.php">Příhlašení</a>
+                        </li>
                     </ul>
                 </div>
             </div>
