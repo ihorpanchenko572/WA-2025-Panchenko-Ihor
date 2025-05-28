@@ -35,7 +35,9 @@ class BookController {
             // Získání ID přihlášeného uživatele
             $user_id = $_SESSION['user_id'];
 
-            
+            var_dump($_SESSION['user_id']);
+            exit;
+
 
             // Zpracování nahraných obrázků
             $imagePaths = [];
