@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../controllers/book_list.php");
+    exit();
+}
+
 require_once '../../models/Database.php';
 require_once '../../models/Book.php';
 
@@ -18,18 +25,22 @@ if (isset($_GET['edit'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editace a mazani knih</title>
+    <title>Editace a mazání knih</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
+    <link rel="stylesheet" href="/public/css/styles.css">
 </head>
-<body>
-        <div class="container mt-5">
+<body class="bg-light">
+
+    <div class="container mt-5">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Knihovna</a>
@@ -40,17 +51,35 @@ if (isset($_GET['edit'])) {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost/WA-2025-Panchenko-Ihor/web1/03-php-projekt/app/views/books/book_create.php">Přidat knihu</a>
+                            <a class="nav-link" href="../views/books/book_create.php">Přidat knihu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost/WA-2025-Panchenko-Ihor/web1/03-php-projekt/app/controllers/book_list.php">Výpis knih</a>
+                            <a class="nav-link" href="#">Výpis knih</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <?php if (isset($_SESSION['username'])): ?>
+                            <li class="nav-item">
+                                <span class="nav-link text-white">Přihlášen jako: <strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../controllers/logout.php">Odhlásit se</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../auth/login.php">Přihlášení</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../auth/register.php">Registrace</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
         </nav>
+
         <?php if ($editMode): ?>
-        <div class="row justify-content-center mt-5">
+            <div class="row justify-content-center mt-5">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header bg-primary text-white text-center">
@@ -111,51 +140,73 @@ if (isset($_GET['edit'])) {
                             <button type="submit" class="btn btn-success w-100">Uložit změny</button>
                         </form>
                     </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php endif; ?>
-            <h2>Výpis knih</h2>
-                <?php if (!empty($books)): ?>
-                    <table class="table table-bordered table-hover">
-                        <thead class="table-primary">
-                            <tr>
-                                <th>ID</th>
-                                <th>Název</th>
-                                <th>Autor</th>
-                                <th>Kategorie</th>
-                                <th>Rok</th>
-                                <th>Cena</th>
-                                <th>ISBN</th>
-                                <th>Akce</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($books as $book): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($book['id']) ?></td>
-                                <td><?= htmlspecialchars($book['title']) ?></td>
-                                <td><?= htmlspecialchars($book['author']) ?></td>
-                                <td><?= htmlspecialchars($book['category']) ?></td>
-                                <td><?= htmlspecialchars($book['year']) ?></td>
-                                <td><?= number_format($book['price'], 2, ',', ' ') ?> Kč</td>
-                                <td><?= htmlspecialchars($book['isbn']) ?></td>
-                                <td>
-                                    <a href="?edit=<?= $book['id'] ?>" class="btn btn-sm btn-warning">Upravit</a>
-                                    <a href="../../controllers/book_delete.php?id=<?= $book['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu chcete smazat tuto knihu?');">Smazat</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-    
-        <?php else: ?>
+        <?php endif; ?>
+
+        <h2>Editace a mazání knih</h2>
+        <?php if (!empty($books)): ?>
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Název</th>
+                        <th>Autor</th>
+                        <th>Kategorie</th>
+                        <th>Rok</th>
+                        <th>Cena</th>
+                        <th>ISBN</th>
+                        <th>Akce</th>
+                        <th>user ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($books as $book): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($book['id']) ?></td>
+                        <td><?= htmlspecialchars($book['title']) ?></td>
+                        <td><?= htmlspecialchars($book['author']) ?></td>
+                        <td><?= htmlspecialchars($book['category']) ?></td>
+                        <td><?= htmlspecialchars($book['year']) ?></td>
+                        <td><?= number_format($book['price'], 2, ',', ' ') ?> Kč</td>
+                        <td><?= htmlspecialchars($book['isbn']) ?></td>
+                        <td>
+                            <?php
+                                $currentUserId = $_SESSION['user_id'] ?? null;
+                                $isAdmin = ($_SESSION['role'] ?? '') === 'admin';
+                                $ownsBook = $currentUserId == $book['user_id'];
+
+                                if ($isAdmin || $ownsBook):
+                            ?>
+                                <a href="?edit=<?= $book['id'] ?>" class="btn btn-sm btn-primary">Upravit</a>
+                                <a href="../../controllers/book_delete.php?id=<?= $book['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu chcete smazat tuto knihu?');">Smazat</a>
+                            <?php else: ?>
+                                <span class="text-muted">Bez oprávnění</span>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= htmlspecialchars($book['user_id']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        
+            <?php else: ?>
             <div class="alert alert-info">Žádná kniha nebyla nalezena.</div>
         <?php endif; ?>
 
-  
 
 
+
+        
+        
+
+
+
+
+
+
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
